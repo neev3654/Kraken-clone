@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Kraken</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(180deg, #0b0b16 0%, #0f0f22 100%);
+            color: #e6e6f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 5vw;
+            background: #0f1120;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #9b8cff;
+            letter-spacing: 0.3px;
+            text-transform: lowercase;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: '◉';
+            font-size: 1.75rem;
+            line-height: 1;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #9aa1c6;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .language-selector:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .sign-in-btn {
+            color: #cfd2e6;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .sign-in-btn:hover {
+            background: rgba(255,255,255,0.08);
+            color: #b9aaff;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 4.5rem;
+        }
+
+        /* Left Side - Illustration */
+        .left-section {
+            flex: 1;
+            background: radial-gradient(circle at 30% 50%, rgba(110, 94, 246, 0.15) 0%, transparent 50%),
+                        linear-gradient(135deg, #0f0f22 0%, #1a1a2e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .illustration-container {
+            position: relative;
+            width: 100%;
+            max-width: 28rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .illustration-text {
+            text-align: center;
+            max-width: 24rem;
+        }
+
+        .illustration-text h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .illustration-text p {
+            font-size: 1.05rem;
+            color: #b3b7cd;
+            line-height: 1.6;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            max-width: 20rem;
+            filter: drop-shadow(0 1.5rem 3rem rgba(110, 94, 246, 0.25));
+            opacity: 0.95;
+        }
+
+        /* Right Side - Form */
+        .right-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            background: #0b0b16;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 28rem;
+            padding: 2.5rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-title {
+            font-size: clamp(1.75rem, 3vw, 2rem);
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1.75rem;
+            line-height: 1.2;
+        }
+
+        /* Account Type Toggle */
+        .account-type-toggle {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            background: rgba(255,255,255,0.04);
+            padding: 0.35rem;
+            border-radius: 1rem;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #9aa1c6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255,255,255,0.06);
+            color: #b9aaff;
+        }
+
+        .toggle-btn.active {
+            background: #6e5ef6;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(110, 94, 246, 0.3);
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cfd2e6;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.04);
+            color: #e6e6f0;
+        }
+
+        .form-input::placeholder {
+            color: #6b7094;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #6e5ef6;
+            background: rgba(255,255,255,0.06);
+            box-shadow: 0 0 0 3px rgba(110, 94, 246, 0.15);
+        }
+
+        .invite-code-link {
+            color: #9b8cff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 1.75rem;
+            transition: color 0.3s;
+        }
+
+        .invite-code-link:hover {
+            color: #b9aaff;
+            text-decoration: underline;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: #6e5ef6;
+            color: white;
+            border: none;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(110, 94, 246, 0.35);
+        }
+
+        .submit-btn:hover {
+            background: #5b4df0;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(110, 94, 246, 0.45);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .terms-text {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #8b8fb0;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .terms-text a {
+            color: #9b8cff;
+            text-decoration: none;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-section {
+                min-height: 35vh;
+                padding: 2rem;
+            }
+
+            .right-section {
+                min-height: 65vh;
+            }
+
+            .illustration-text h2 {
+                font-size: 1.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 4vw;
+            }
+
+            .logo {
+                font-size: 1.35rem;
+            }
+
+            .container {
+                padding-top: 4rem;
+            }
+
+            .left-section {
+                min-height: 30vh;
+                padding: 2rem 1.5rem;
+            }
+
+            .illustration-text h2 {
+                font-size: 1.5rem;
+            }
+
+            .illustration-text p {
+                font-size: 0.95rem;
+            }
+
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+            }
+
+            .account-type-toggle {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0;
+                background: transparent;
+            }
+
+            .toggle-btn {
+                width: 100%;
+                padding: 1rem;
+                border: 1px solid rgba(255,255,255,0.12);
+                background: rgba(255,255,255,0.04);
+            }
+
+            .toggle-btn.active {
+                border-color: #6e5ef6;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .header-actions {
+                gap: 0.75rem;
+            }
+
+            .language-selector {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.6rem;
+            }
+
+            .sign-in-btn {
+                font-size: 0.85rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .left-section {
+                min-height: 25vh;
+                padding: 1.5rem 1rem;
+            }
+
+            .illustration-text h2 {
+                font-size: 1.35rem;
+            }
+
+            .form-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .form-title {
+                font-size: 1.35rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="kraken.html" class="logo">kraken</a>
+        <div class="header-actions">
+            <div class="language-selector">
+                <span>🌐</span>
+                <span>U.S. English</span>
+                <span>▼</span>
+            </div>
+            <a href="#" class="sign-in-btn">Sign in</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="left-section">
+            <div class="illustration-container">
+                <div class="illustration-text">
+                    <h2>Start your crypto journey with Kraken</h2>
+                    <p>Join millions of traders and investors who trust Kraken for secure and easy crypto trading.</p>
+                </div>
+                <img src="https://www.kraken.com/cdn-cgi/image/width=400,quality=85,format=auto/https://assets.kraken.com/onboarding/owa/pages/sign-up/hero-coin.light.svg" alt="Kraken Crypto Illustration" class="hero-image">
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="form-container">
+                <h1 class="form-title">Create your account</h1>
+
+                <div class="account-type-toggle">
+                    <button class="toggle-btn active">
+                        <span>👤</span>
+                        Personal
+                    </button>
+                    <a href="business.html"><button class="toggle-btn">
+                        <span>🏢</span>
+                        Business
+                    </button>
+                    </a>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Email address</label>
+                        <input type="email" class="form-input" placeholder="satoshi@email.com" required>
+                    </div>
+
+                    <a href="#" class="invite-code-link">+ Add invite code</a>
+
+                    <button type="submit" class="submit-btn">Next</button>
+
+                    <p class="terms-text">
+                        By creating an account, you agree to our <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy</a>.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

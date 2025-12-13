@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kraken - Create Business Account</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(180deg, #0b0b16 0%, #0f0f22 100%);
+            color: #e6e6f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 5vw;
+            background: #0f1120;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #9b8cff;
+            letter-spacing: 0.3px;
+            text-transform: lowercase;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: '◉';
+            font-size: 1.75rem;
+            line-height: 1;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #9aa1c6;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .language-selector:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .sign-in-btn {
+            color: #cfd2e6;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .sign-in-btn:hover {
+            background: rgba(255,255,255,0.08);
+            color: #b9aaff;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 4.5rem;
+        }
+
+        /* Left Side - Illustration */
+        .left-section {
+            flex: 1;
+            background: radial-gradient(circle at 30% 50%, rgba(110, 94, 246, 0.15) 0%, transparent 50%),
+                        linear-gradient(135deg, #0f0f22 0%, #1a1a2e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .illustration-container {
+            position: relative;
+            width: 100%;
+            max-width: 28rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .illustration-text {
+            text-align: center;
+            max-width: 24rem;
+        }
+
+        .illustration-text h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .illustration-text p {
+            font-size: 1.05rem;
+            color: #b3b7cd;
+            line-height: 1.6;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            max-width: 20rem;
+            filter: drop-shadow(0 1.5rem 3rem rgba(110, 94, 246, 0.25));
+            opacity: 0.95;
+        }
+
+        /* Right Side - Form */
+        .right-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            background: #0b0b16;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 28rem;
+            padding: 2.5rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-title {
+            font-size: clamp(1.75rem, 3vw, 2rem);
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1.75rem;
+            line-height: 1.2;
+        }
+
+        /* Account Type Toggle */
+        .account-type-toggle {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255,255,255,0.04);
+            padding: 0.35rem;
+            border-radius: 1rem;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #9aa1c6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255,255,255,0.06);
+            color: #b9aaff;
+        }
+
+        .toggle-btn.active {
+            background: #6e5ef6;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(110, 94, 246, 0.3);
+        }
+
+        /* Info Text */
+        .info-text {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: #b3b7cd;
+            font-size: 0.95rem;
+        }
+
+        .learn-more-link {
+            color: #9b8cff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .learn-more-link:hover {
+            color: #b9aaff;
+            text-decoration: underline;
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cfd2e6;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.04);
+            color: #e6e6f0;
+        }
+
+        .form-input::placeholder {
+            color: #6b7094;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #6e5ef6;
+            background: rgba(255,255,255,0.06);
+            box-shadow: 0 0 0 3px rgba(110, 94, 246, 0.15);
+        }
+
+        /* Password Field */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-toggle-info {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7094;
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        /* Password Requirements */
+        .password-requirements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: #8b8fb0;
+            padding: 0.35rem 0.65rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 999px;
+        }
+
+        .requirement .icon {
+            font-size: 0.7rem;
+        }
+
+        /* Select Dropdown */
+        select.form-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239aa1c6' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1.25rem center;
+            padding-right: 2.75rem;
+            cursor: pointer;
+        }
+
+        select.form-input option {
+            background: #1a1a2e;
+            color: #e6e6f0;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: #6e5ef6;
+            color: white;
+            border: none;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(110, 94, 246, 0.35);
+            margin-top: 1.5rem;
+        }
+
+        .submit-btn:hover {
+            background: #5b4df0;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(110, 94, 246, 0.45);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .terms-text {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #8b8fb0;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .terms-text a {
+            color: #9b8cff;
+            text-decoration: none;
+        }
+
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-section {
+                min-height: 40vh;
+            }
+
+            .right-section {
+                min-height: 60vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding-top: 4rem;
+            }
+
+            .left-section {
+                min-height: 30vh;
+                padding: 1.5rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .form-title {
+                font-size: 1.75rem;
+            }
+
+            .account-type-toggle {
+                flex-direction: column;
+            }
+
+            .toggle-btn {
+                width: 100%;
+            }
+
+            .password-requirements {
+                flex-direction: column;
+            }
+
+            .requirement {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .header-actions {
+                gap: 1rem;
+            }
+
+            .language-selector {
+                font-size: 0.85rem;
+            }
+
+            .sign-in-btn {
+                font-size: 0.85rem;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .form-container {
+                padding: 1rem;
+            }
+
+            .left-section {
+                min-height: 25vh;
+            }
+
+            .info-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="kraken.html" class="logo">kraken</a>
+        <div class="header-actions">
+            <div class="language-selector">
+                <span>🌐</span>
+                <span>U.S. English</span>
+                <span>▼</span>
+            </div>
+            <a href="#" class="sign-in-btn">Sign in</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="left-section">
+            <div class="illustration-container">
+                <div class="illustration-text">
+                    <h2>Powerful crypto solutions for your business</h2>
+                    <p>Access institutional-grade trading tools, OTC services, and dedicated support for your business needs.</p>
+                </div>
+                <img src="https://www.kraken.com/cdn-cgi/image/width=400,quality=85,format=auto/https://assets.kraken.com/onboarding/owa/pages/sign-up/hero-trading.light.svg" alt="Kraken Business Illustration" class="hero-image">
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="form-container">
+                <h1 class="form-title">Create a business account</h1>
+
+                <div class="account-type-toggle">
+                    <a href="signup.html" class="toggle-btn">
+                        <span>👤</span>
+                        Personal
+                    </a>
+                    <a href="business.html" class="toggle-btn active">
+                        <span>🏢</span>
+                        Business
+                    </a>
+                </div>
+
+                <p class="info-text">
+                    For clients trading for business purposes or on behalf of a business entity.
+                    <a href="#" class="learn-more-link">Learn more</a>
+                </p>
+
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Business email address</label>
+                        <input type="email" class="form-input" placeholder="company@business.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" class="form-input" placeholder="Create a strong password" required>
+                            <span class="password-toggle-info">👁️</span>
+                        </div>
+                        <div class="password-requirements">
+                            <span class="requirement">
+                                <span class="icon">○</span>
+                                12 characters
+                            </span>
+                            <span class="requirement">
+                                <span class="icon">○</span>
+                                1 number
+                            </span>
+                            <span class="requirement">
+                                <span class="icon">○</span>
+                                1 special character
+                            </span>
+                            <span class="requirement">
+                                <span class="icon">○</span>
+                                1 letter
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Country of formation</label>
+                        <select class="form-input" required>
+                            <option value="" disabled selected>Select country</option>
+                            <option value="us">United States</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="ca">Canada</option>
+                            <option value="de">Germany</option>
+                            <option value="fr">France</option>
+                            <option value="jp">Japan</option>
+                            <option value="au">Australia</option>
+                            <option value="sg">Singapore</option>
+                            <option value="ch">Switzerland</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Create business account</button>
+
+                    <p class="terms-text">
+                        By creating a business account, you agree to Kraken's <a href="#terms">Terms of Service</a> and <a href="#privacy">Privacy Policy</a>.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
