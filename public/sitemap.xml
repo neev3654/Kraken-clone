@@ -2,7 +2,7 @@
 
   <url>
     <loc>https://kraken-clone.vercel.app/</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -10,9 +10,9 @@
   <url>
     <loc>https://kraken-clone.vercel.app/business</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
 
-  
+
 
 </urlset>
