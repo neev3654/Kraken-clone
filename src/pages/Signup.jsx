@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 import signupHeroImg from '../assets/4bd19eb3f3ba4b633a1685b47e9bc9bb89a00181-600x600.webp';
 
 const AuthHeader = () => (
@@ -23,6 +24,13 @@ const AuthHeader = () => (
 const Signup = () => {
   return (
     <>
+      <Helmet>
+        <title>Personal Signup - Kraken</title>
+        <meta
+          name="description"
+          content="Create a personal account to start trading crypto"
+        />
+      </Helmet>
       <AuthHeader />
       <div className="flex flex-col lg:flex-row min-h-screen pt-[4.5rem]">
         {/* Left Section */}

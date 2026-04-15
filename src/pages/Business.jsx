@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 import businessHeroImg from '../assets/a83488595e5993f378841b78edf967d846715478-600x600.webp';
 
 const AuthHeader = () => (
+  
   <header className="fixed top-0 left-0 right-0 flex justify-between items-center px-4 sm:px-[5vw] py-5 bg-[#0f1120] border-b border-[rgba(255,255,255,0.06)] z-[100]">
     <Link to="/" className="text-[#9b8cff] text-2xl font-extrabold tracking-wide flex items-center gap-[0.4rem] lowercase no-underline">
       <span className="text-[1.75rem] leading-none">◉</span>kraken
@@ -23,6 +25,13 @@ const AuthHeader = () => (
 const Business = () => {
   return (
     <>
+    <Helmet>
+        <title>Business Signup - Kraken</title>
+        <meta
+          name="description"
+          content="Create a business account for institutional crypto trading"
+        />
+      </Helmet>
       <AuthHeader />
       <div className="flex flex-col lg:flex-row min-h-screen pt-[4.5rem]">
         {/* Left Section */}
